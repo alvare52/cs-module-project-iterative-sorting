@@ -18,9 +18,29 @@ def selection_sort(arr):
 # TO-DO:  implement the Bubble Sort function below
 def bubble_sort(arr):
     # Your code here
+    # will always be n ^ c
+    has_swapped = True
+    turn = 0
+    while has_swapped:
+        turn += 1
+        has_swapped = False
+        print(f"turn: {turn}")
+        # loop through everything in array
+        for x in range(0, len(arr) - 1):
+            print(x)
+            # left > right
+            if arr[x] > arr[x + 1] and x + 1 < (len(arr)):
+                temp = arr[x + 1] # right
+                arr[x + 1] = arr[x] # right is now left
+                arr[x] = temp # old left is now right
+                has_swapped = True
+                print(f"left: {arr[x + 1]},right:{arr[x]}")
 
-
+    print(f"total turns: {turn}")
     return arr
+
+my_list = [1, 5, 4, 7, 2, 3]
+print(bubble_sort(my_list))
 
 '''
 STRETCH: implement the Count Sort function below
@@ -44,3 +64,23 @@ def counting_sort(arr, maximum=None):
 
 
     return arr
+
+def insertion_sort(input_list):
+
+    # mark first item as sorted (no code needed, just conceptual)
+    # for every item starting at the second element
+    for i in range(1, len(input_list)):
+        # put current item in temp variable
+        current_item = input_list[i]
+        
+        look_left_index = i - 1
+
+        # look left, until we find where it belongs
+        # if we are not at the beginning
+        # and current item is less than sorted
+        while look_left_index > 0 and current_item < input_list[look_left_index]:
+            input_list[look_left_index + 1] = input_list[look_left_index]
+            look_left_index -= 1
+        
+        input_list[look_left_index] = current_item
+    return input_list
