@@ -1,46 +1,56 @@
 # TO-DO: Complete the selection_sort() function below
 def selection_sort(arr):
     # loop through n-1 elements
+    smallest_index = 0
+    lowest = None
     for i in range(0, len(arr) - 1):
         cur_index = i
         smallest_index = cur_index
         # TO-DO: find next smallest element
+        # if right < left and not out of range
+        if arr[cur_index] < arr[cur_index + 1] and (cur_index + 1) < len(arr):
         # (hint, can do in 3 loc)
         # Your code here
-
+            smallest_index = cur_index
+            lowest = arr[cur_index]
 
         # TO-DO: swap
         # Your code here
+    old_first = arr[0]
+    arr[0] = arr[smallest_index]
+    arr[smallest_index] = old_first
 
     return arr
 
+my_first_list = [4, 2, 7, 1, 5]
+print(selection_sort(my_first_list))
 
 # TO-DO:  implement the Bubble Sort function below
 def bubble_sort(arr):
     # Your code here
-    # will always be n ^ c
     has_swapped = True
     turn = 0
     while has_swapped:
         turn += 1
         has_swapped = False
-        print(f"turn: {turn}")
+        # print(f"turn: {turn}")
         # loop through everything in array
         for x in range(0, len(arr) - 1):
-            print(x)
+            # print(x)
             # left > right
             if arr[x] > arr[x + 1] and x + 1 < (len(arr)):
                 temp = arr[x + 1] # right
                 arr[x + 1] = arr[x] # right is now left
                 arr[x] = temp # old left is now right
                 has_swapped = True
-                print(f"left: {arr[x + 1]},right:{arr[x]}")
+                # print(f"left: {arr[x + 1]},right:{arr[x]}")
 
     print(f"total turns: {turn}")
+    print(f"array now: {arr}")
     return arr
 
-my_list = [1, 5, 4, 7, 2, 3]
-print(bubble_sort(my_list))
+# my_list = [1, 5, 4, 7, 2, 3]
+# print(bubble_sort(my_list))
 
 '''
 STRETCH: implement the Count Sort function below
