@@ -1,24 +1,25 @@
 # TO-DO: Complete the selection_sort() function below
+# O(n^2) - not good
 def selection_sort(arr):
-    # loop through n-1 elements
-    smallest_index = 0
-    lowest = None
-    for i in range(0, len(arr) - 1):
-        cur_index = i
-        smallest_index = cur_index
-        # TO-DO: find next smallest element
-        # if right < left and not out of range
-        if arr[cur_index] < arr[cur_index + 1] and (cur_index + 1) < len(arr):
-        # (hint, can do in 3 loc)
-        # Your code here
-            smallest_index = cur_index
-            lowest = arr[cur_index]
 
-        # TO-DO: swap
-        # Your code here
-    old_first = arr[0]
-    arr[0] = arr[smallest_index]
-    arr[smallest_index] = old_first
+    # loop through array and find smallest element
+    for i in range(len(arr)):
+
+        # just pick first index for now
+        smallest = i
+
+        for j in range(i + 1, len(arr)):
+            
+            # if we find anything smaller that the starting one, change it
+            if arr[smallest] > arr[j]:
+                smallest = j
+
+        # Swap first element with the smallest
+        temp = arr[i]
+        arr[i] = arr[smallest]
+        arr[smallest] = temp
+        # shorthand for swapping 
+        # arr[i], arr[smallest] = arr[smallest], arr[i]
 
     return arr
 
@@ -26,6 +27,7 @@ my_first_list = [4, 2, 7, 1, 5]
 print(selection_sort(my_first_list))
 
 # TO-DO:  implement the Bubble Sort function below
+# O(n^2) - not good
 def bubble_sort(arr):
     # Your code here
     has_swapped = True
@@ -33,24 +35,23 @@ def bubble_sort(arr):
     while has_swapped:
         turn += 1
         has_swapped = False
-        # print(f"turn: {turn}")
+
         # loop through everything in array
         for x in range(0, len(arr) - 1):
-            # print(x)
+            
             # left > right
             if arr[x] > arr[x + 1] and x + 1 < (len(arr)):
                 temp = arr[x + 1] # right
                 arr[x + 1] = arr[x] # right is now left
                 arr[x] = temp # old left is now right
                 has_swapped = True
-                # print(f"left: {arr[x + 1]},right:{arr[x]}")
 
     print(f"total turns: {turn}")
     print(f"array now: {arr}")
     return arr
 
-# my_list = [1, 5, 4, 7, 2, 3]
-# print(bubble_sort(my_list))
+my_list2 = [1, 5, 4, 7, 2, 3]
+print(bubble_sort(my_list2))
 
 '''
 STRETCH: implement the Count Sort function below
@@ -69,9 +70,39 @@ buckets.
 
 What is the time and space complexity of the counting sort algorithm?
 '''
-def counting_sort(arr, maximum=None):
+def count_sort(arr, maximum=None):
     # Your code here
+    if len(arr) < 1:
+        return []
+        
+    max_element = int(max(arr)) 
+    # max_element = maximum
 
+    min_element = int(min(arr)) 
+    range_of_elements = (max_element - min_element) + 1
+    # Create a count array to store count of individual 
+    # elements and initialize count array as 0 
+    count_arr = [0 for _ in range(range_of_elements)] 
+    output_arr = [0 for _ in range(len(arr))] 
+  
+    # Store count of each character 
+    for i in range(0, len(arr)): 
+        count_arr[arr[i]-min_element] += 1
+  
+    # Change count_arr[i] so that count_arr[i] now contains actual 
+    # position of this element in output array 
+    for i in range(1, len(count_arr)): 
+        count_arr[i] += count_arr[i-1] 
+  
+    # Build the output character array 
+    for i in range(len(arr)-1, -1, -1): 
+        output_arr[count_arr[arr[i] - min_element] - 1] = arr[i] 
+        count_arr[arr[i] - min_element] -= 1
+  
+    # Copy the output array to arr, so that arr now 
+    # contains sorted characters 
+    for i in range(0, len(arr)): 
+        arr[i] = output_arr[i] 
 
     return arr
 
@@ -94,3 +125,15 @@ def insertion_sort(input_list):
         
         input_list[look_left_index] = current_item
     return input_list
+
+
+# my_test = [85, 46, 27, 81, 94, 9, 27, 38, 43, 99, 37, 63, 31, 42, 14]
+# new_list = []
+# for element in my_test:
+#     if element % 3 == 0:
+#         print(element)
+# #         new_list.append(element)
+
+# # for element in new_list:
+# #     print(element)
+# # print(new_list)
